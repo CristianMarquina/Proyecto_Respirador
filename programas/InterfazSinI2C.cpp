@@ -18,7 +18,7 @@ void loop() {
   if (dato=='A'){
     int SenVol=map(analogRead(0), 0, 1023, 0, 100);
     int SenRR=map(analogRead(1), 0, 1023, 10, 40);
-    float SenRat= 1.0+ map(analogRead(0), 0, 1023, 0, 30)/10;
+    float SenRat= 1.0+ map(analogRead(2), 0, 1023, 0, 30)/10;
     // Cursor en la 2° posición de la 2° fila
     //Display del potenciometro para el Volumen
     lcd.setCursor(1,1);
