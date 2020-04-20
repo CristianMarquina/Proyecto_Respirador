@@ -92,17 +92,25 @@ void loop() {
 }
 
 void SenRRup(){
-  SenRR= SenRR+1;
+	if (SenRR < 40){
+		SenRR= SenRR+1;
+	}
 }
  
 void SenRRdown(){
-  SenRR = SenRR-1;
+	if (SenRR > 10){
+		SenRR = SenRR-1;
+	}
 }
 
 void SenRatup(){
-  SenRat= SenRat+0.1;
+	if (SenRat < 4){
+		SenRat= SenRat+0.1;
+	}
 }
  
 void SenRatdown(){
-  SenRat = SenRat-0.1;
+	if (SenRat < 1){
+		SenRat = SenRat-0.1;
+	}
 }
