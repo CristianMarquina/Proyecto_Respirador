@@ -10,46 +10,58 @@ void setup() {
   lcd.print("Set:");
   lcd.setCursor(11,0);
   lcd.print("(PcmH2O):");
+  lcd.setCursor(1,1);
+  // Cursor en la 2° posición de la 2° fila para colocar el Volumen
+  lcd.print("V=");
+  lcd.setCursor(6,1);
+  lcd.print("% max");
+  //Display del valor pico de la presion de inspiracion
+  lcd.setCursor(13,1);
+  lcd.print("peak=10");
+  lcd.setCursor(1,2);
+  // Cursor en la 2° posición de la 3° fila para colocar RR
+  lcd.print("RR=");
+  lcd.setCursor(6,2);
+  lcd.print("/min");
+  //Display para el plateau preassure
+  lcd.setCursor(13,2);
+  lcd.print("plat= 0");
+  // Cursor en la 2° posición de la 4° fila para colocar I/E
+  lcd.setCursor(1,3);
+  lcd.print("I:E=1:");
+  //Display para el PEEP
+  lcd.setCursor(13,3);
+  lcd.print("PEEP= 0");
 }
 
 void loop() {
+
+  int SenVol=map(analogRead(0), 0, 1023, 0, 100);
+  int SenRR=map(analogRead(1), 0, 1023, 10, 40);
+  float SenRat= 1.0+ map(analogRead(2), 0, 1023, 0, 30)/10;
+
   //Lectura del "Control"
   char dato= Serial.read();
   if (dato=='A'){
-    int SenVol=map(analogRead(0), 0, 1023, 0, 100);
-    int SenRR=map(analogRead(1), 0, 1023, 10, 40);
-    float SenRat= 1.0+ map(analogRead(2), 0, 1023, 0, 30)/10;
-    // Cursor en la 2° posición de la 2° fila
-    //Display del potenciometro para el Volumen
-    lcd.setCursor(1,1);
-    lcd.print("V=");
+
+    //Display del potenciometro para el valor del Volumen
+    // Cursor en la 3° posición de la 2° fila
+    lcd.setCursor(3,1);
     lcd.print(SenVol);
-    lcd.print("% max");
 
-    //Display del valor pico de la presion de inspiracion
-    lcd.setCursor(13,1);
-    lcd.print("peak=10");
 
-    // Cursor en la 2° posición de la 3° fila
-    //Display del potenciometro para la taza respiratoria
-    lcd.setCursor(1,2);
-    lcd.print("RR=");
+    //Display del potenciometro para el valor de la taza respiratoria
+    // Cursor en la 4° posición de la 3° fila
+    lcd.setCursor(4,2);
     lcd.print(SenRR); //Solo tine un decimal
-    lcd.print("/min");
 
-    //Display para el plateau preassure
-    lcd.setCursor(13,2);
-    lcd.print("plat= 0");
-
-    // Cursor en la 2° posición de la 4° fila
-    //Display del potenciometro para el la relacion I/E
-    lcd.setCursor(1,3);
-    lcd.print("I:E=1:");
+    
+    //Display del potenciometro para el valor de la relacion I/E
+    // Cursor en la 7° posición de la 4° fila
+    lcd.setCursor(7,3);
     lcd.print(SenRat);
 
-    //Display para el PEEP
-    lcd.setCursor(13,3);
-    lcd.print("PEEP= 0");
+    
 
     //Envia un caracter para finalizar la comunicacion
     Serial.println("D");
